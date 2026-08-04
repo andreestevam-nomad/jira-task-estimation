@@ -13,7 +13,7 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/highlight.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/languages/markdown.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&family=Patrick+Hand&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #0b0d14;
@@ -1541,6 +1541,80 @@
       margin-bottom: 0;
       text-align: center;
     }
+    .about-workflow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      justify-content: center;
+      gap: 0.65rem 0.35rem;
+      padding: 1.1rem 0.85rem;
+      background: #0a0c10;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+    }
+    .about-workflow__step {
+      position: relative;
+      flex: 1 1 11rem;
+      min-width: min(100%, 11rem);
+      max-width: 16rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 5.5rem;
+      padding: 1.35rem 0.85rem 0.85rem;
+      border: 2px solid #f0f3fa;
+      border-radius: 14px;
+      background: transparent;
+      text-align: center;
+    }
+    .about-workflow__step p {
+      margin: 0;
+      color: #f0f3fa;
+      font-family: "Patrick Hand", "IBM Plex Sans", cursive;
+      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+      line-height: 1.25;
+    }
+    .about-workflow__num {
+      position: absolute;
+      top: -0.55rem;
+      right: -0.55rem;
+      width: 2rem;
+      height: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: #c00020;
+      color: #fff;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1;
+      box-shadow: 0 0 0 3px rgba(192, 0, 32, 0.35), 0 4px 14px rgba(0, 0, 0, 0.45);
+    }
+    .about-workflow__arrow {
+      flex: 0 0 auto;
+      align-self: center;
+      color: #f0f3fa;
+      font-size: 1.75rem;
+      line-height: 1;
+      padding: 0 0.15rem;
+      user-select: none;
+    }
+    @media (max-width: 720px) {
+      .about-workflow {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .about-workflow__step {
+        width: min(100%, 18rem);
+        max-width: none;
+      }
+      .about-workflow__arrow {
+        transform: rotate(90deg);
+      }
+    }
     .about-chart {
       position: relative;
       background: #12151c;
@@ -1944,28 +2018,68 @@
       margin: 0; padding-left: 1.1rem; color: var(--text); font-size: 0.9rem;
     }
     .guide-axis li { margin: 0.28rem 0; }
+    .guide-matrix-wrap {
+      width: fit-content;
+      max-width: 100%;
+    }
     .guide-matrix {
-      width: 100%; border-collapse: separate; border-spacing: 0.45rem;
-      font-size: 0.88rem;
+      width: auto;
+      border-collapse: separate;
+      border-spacing: 0.3rem;
+      font-size: 0.84rem;
+      table-layout: fixed;
     }
     .guide-matrix th {
-      color: var(--muted); font-weight: 500; font-size: 0.78rem;
-      text-transform: uppercase; letter-spacing: 0.05em;
-      padding: 0.35rem 0.5rem; text-align: center;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.35rem;
+      text-align: center;
+      line-height: 1.25;
     }
     .guide-matrix th.row-head {
-      text-align: right; width: 7.5rem; vertical-align: middle;
+      text-align: right;
+      width: 4.75rem;
+      vertical-align: middle;
+      padding-right: 0.25rem;
+      font-size: 0.66rem;
     }
     .guide-matrix td {
       background: var(--surface2);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 0.75rem 0.85rem;
+      border-radius: 10px;
+      padding: 0.45rem 0.55rem;
       vertical-align: top;
       color: var(--text);
+      width: 10.5rem;
+      line-height: 1.35;
     }
-    .guide-matrix td b { display: block; margin-bottom: 0.2rem; font-weight: 600; }
-    .guide-matrix td .cell-sub { color: var(--muted); font-size: 0.84rem; }
+    .guide-matrix td b {
+      display: block;
+      margin-bottom: 0.12rem;
+      font-weight: 600;
+      font-size: 0.82rem;
+      line-height: 1.25;
+    }
+    .guide-matrix td .cell-sub {
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.3;
+    }
+    .guide-matrix__hint {
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+      font-size: 0.62rem;
+    }
+    @media (max-width: 640px) {
+      .guide-matrix-wrap { width: 100%; }
+      .guide-matrix { width: 100%; table-layout: auto; }
+      .guide-matrix td { width: auto; }
+      .guide-matrix th.row-head { width: 3.5rem; font-size: 0.62rem; }
+    }
     .guide-practice {
       display: grid; gap: 0.55rem;
     }
@@ -2043,7 +2157,7 @@
           placeholder="https://seu-dominio.atlassian.net" />
       </label>
       <button type="button" class="primary" id="btnHomeJiraUrl">Salvar</button>
-      <p class="jira-url-setup__hint">Necessário para links das tasks e a instrução de atualização no Jira. Será gravado na URL como <code>jiraUrl</code>.</p>
+      <p class="jira-url-setup__hint">Necessário para links das tasks e a instrução de atualização no Jira. Será salvo no navegador e na URL como <code>jiraUrl</code>.</p>
     </div>
 
     <nav class="app-tabs" role="tablist" aria-label="Seções">
@@ -2221,6 +2335,23 @@
       <section class="card about-explainer" aria-label="Sobre" id="aboutContent">
         <h2>Como a estimativa funciona</h2>
 
+        <div class="about-workflow" aria-label="Fluxo em três passos">
+          <div class="about-workflow__step">
+            <span class="about-workflow__num" aria-hidden="true">1</span>
+            <p>Importar CSV com tasks a refinar</p>
+          </div>
+          <div class="about-workflow__arrow" aria-hidden="true">→</div>
+          <div class="about-workflow__step">
+            <span class="about-workflow__num" aria-hidden="true">2</span>
+            <p>Estimar com a matriz</p>
+          </div>
+          <div class="about-workflow__arrow" aria-hidden="true">→</div>
+          <div class="about-workflow__step">
+            <span class="about-workflow__num" aria-hidden="true">3</span>
+            <p>Usar o Markdown + MCP do Jira para atualizar tasks</p>
+          </div>
+        </div>
+
         <div class="about-chart">
           <svg viewBox="0 0 980 470" role="img" aria-label="Gráfico: complexidade no eixo X, dias no eixo Y; incerteza sobe a estimativa nas curvas P40, P50 e P95">
             <defs>
@@ -2372,12 +2503,13 @@
 
           <div class="guide-section">
             <h3>A matriz</h3>
+            <div class="guide-matrix-wrap">
             <table class="guide-matrix">
               <thead>
                 <tr>
                   <th></th>
-                  <th>Baixa incerteza<br/><span style="text-transform:none;letter-spacing:0;font-weight:400">(sei o que fazer)</span></th>
-                  <th>Alta incerteza<br/><span style="text-transform:none;letter-spacing:0;font-weight:400">(ainda não sei)</span></th>
+                  <th>Baixa incerteza<br/><span class="guide-matrix__hint">(sei o que fazer)</span></th>
+                  <th>Alta incerteza<br/><span class="guide-matrix__hint">(ainda não sei)</span></th>
                 </tr>
               </thead>
               <tbody>
@@ -2405,6 +2537,7 @@
                 </tr>
               </tbody>
             </table>
+            </div>
           </div>
 
           <div class="guide-section">
@@ -3051,6 +3184,65 @@
       if (!raw) return null;
       return normalizeConfig(decodeProp(raw));
     }
+    const CONFIG_SETTINGS_KEY = 'task-estimation-settings-v1';
+
+    function loadStoredSettings() {
+      try {
+        const raw = localStorage.getItem(CONFIG_SETTINGS_KEY);
+        if (!raw) return null;
+        const data = JSON.parse(raw);
+        if (!data || typeof data !== 'object') return null;
+        return data;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function persistSettings({ cfg = config, jiraUrl, jiraJql } = {}) {
+      try {
+        const jira = jiraUrl !== undefined
+          ? String(jiraUrl || '').trim().replace(new RegExp('/+$'), '')
+          : getJiraBase();
+        const jql = jiraJql !== undefined
+          ? String(jiraJql || '').trim()
+          : getJiraJql();
+        const payload = {
+          jiraUrl: jira,
+          jiraJql: jql,
+          prop: normalizeConfig(cfg),
+          savedAt: new Date().toISOString(),
+        };
+        localStorage.setItem(CONFIG_SETTINGS_KEY, JSON.stringify(payload));
+      } catch (_) {}
+    }
+
+    function applyStoredSettingsToUrlIfMissing() {
+      const stored = loadStoredSettings();
+      if (!stored) return false;
+      const params = new URLSearchParams(window.location.search);
+      const url = new URL(window.location.href);
+      let changed = false;
+      if (
+        !params.get('jiraUrl')
+        && !params.get('jira')
+        && !params.get('jira_base')
+        && stored.jiraUrl
+      ) {
+        url.searchParams.set('jiraUrl', String(stored.jiraUrl).replace(new RegExp('/+$'), ''));
+        changed = true;
+      }
+      if (!params.get('jiraJql') && !params.get('jql') && stored.jiraJql) {
+        url.searchParams.set('jiraJql', stored.jiraJql);
+        changed = true;
+      }
+      if (!params.get('prop') && stored.prop) {
+        url.searchParams.set('prop', encodeProp(normalizeConfig(stored.prop)));
+        changed = true;
+      }
+      if (changed) history.replaceState({}, '', url);
+      return changed;
+    }
+
     function getActiveTabId() {
       const btn = document.querySelector('.app-tabs [role="tab"][aria-selected="true"]');
       return (btn && btn.dataset.tab) || 'estimar';
@@ -3078,6 +3270,7 @@
         else url.searchParams.delete('tab');
       }
       history.replaceState({}, '', url);
+      persistSettings({ cfg, jiraUrl: jira, jiraJql: jql });
     }
     function getJiraBase() {
       const params = new URLSearchParams(window.location.search);
@@ -3154,6 +3347,7 @@
         if (next) url.searchParams.set('jiraJql', next);
         else url.searchParams.delete('jiraJql');
         history.replaceState({}, '', url);
+        persistSettings({ jiraJql: next });
       }
       refreshJiraIssuesLink();
     }
@@ -7434,8 +7628,13 @@
 
     // ---------- boot ----------
     try {
+      applyStoredSettingsToUrlIfMissing();
       const fromUrl = readPropFromUrl();
       config = normalizeConfig(fromUrl || structuredClone(DEFAULTS));
+      const stored = loadStoredSettings();
+      if (!fromUrl && stored && stored.prop) {
+        config = normalizeConfig(stored.prop);
+      }
     } catch (err) {
       config = normalizeConfig(structuredClone(DEFAULTS));
     }
@@ -7464,6 +7663,9 @@
     updateMatrixTaskBanner();
     renderAll();
     renderExportText();
+    if (getJiraBase() || getJiraJql() || new URLSearchParams(window.location.search).get('prop')) {
+      persistSettings({ cfg: config });
+    }
   </script>
 </body>
 </html>
