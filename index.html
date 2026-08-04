@@ -13,7 +13,7 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/highlight.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/languages/markdown.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #0b0d14;
@@ -101,6 +101,30 @@
       background: var(--surface2); color: var(--text);
       transition: background var(--fade), border-color var(--fade), color var(--fade),
         transform 160ms var(--ease), box-shadow var(--fade);
+    }
+    .ui-icon {
+      width: 1.05em;
+      height: 1.05em;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .ui-icon--fill {
+      fill: currentColor;
+      stroke: none;
+    }
+    .btn-with-icon,
+    .app-tabs [role="tab"] {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.42rem;
+    }
+    .btn-icon-only {
+      padding: 0.5rem 0.62rem;
     }
     button:hover {
       border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
@@ -1197,6 +1221,31 @@
       border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
       box-shadow: 0 0 0 1px rgba(62,207,255,0.08);
     }
+    .app-tabs [role="tab"][data-tab="estimar"] {
+      font-weight: 600;
+    }
+    .app-tabs [role="tab"][data-tab="estimar"]:not([aria-selected="true"]) {
+      color: color-mix(in srgb, var(--accent) 78%, var(--text));
+      background: color-mix(in srgb, var(--accent) 7%, transparent);
+      border-color: color-mix(in srgb, var(--accent) 28%, transparent);
+    }
+    .app-tabs [role="tab"][data-tab="estimar"][aria-selected="true"] {
+      background: linear-gradient(135deg, rgba(62, 207, 255, 0.28), rgba(62, 207, 255, 0.1));
+      box-shadow:
+        0 0 0 1px rgba(62, 207, 255, 0.22),
+        0 0 22px rgba(62, 207, 255, 0.12);
+    }
+    .app-tabs [role="tab"] .tab-badge {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.12rem 0.35rem;
+      border-radius: 999px;
+      background: rgba(62, 207, 255, 0.18);
+      color: #9ee8ff;
+      border: 1px solid rgba(62, 207, 255, 0.28);
+    }
     .tab-panel[hidden] { display: none !important; }
     .tab-panel > .card:first-child,
     .tab-panel > .grid:first-child,
@@ -1542,76 +1591,69 @@
       text-align: center;
     }
     .about-workflow {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 0.45rem;
       align-items: stretch;
-      justify-content: center;
-      gap: 0.65rem 0.35rem;
-      padding: 1.1rem 0.85rem;
-      background: #0a0c10;
-      border: 1px solid var(--border);
-      border-radius: 18px;
     }
     .about-workflow__step {
-      position: relative;
-      flex: 1 1 11rem;
-      min-width: min(100%, 11rem);
-      max-width: 16rem;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 5.5rem;
-      padding: 1.35rem 0.85rem 0.85rem;
-      border: 2px solid #f0f3fa;
-      border-radius: 14px;
-      background: transparent;
-      text-align: center;
-    }
-    .about-workflow__step p {
-      margin: 0;
-      color: #f0f3fa;
-      font-family: "Patrick Hand", "IBM Plex Sans", cursive;
-      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
-      line-height: 1.25;
+      gap: 0.65rem;
+      align-items: flex-start;
+      padding: 0.75rem 0.85rem;
+      border-radius: 12px;
+      background: rgba(62, 207, 255, 0.05);
+      border: 1px solid rgba(62, 207, 255, 0.14);
     }
     .about-workflow__num {
-      position: absolute;
-      top: -0.55rem;
-      right: -0.55rem;
-      width: 2rem;
-      height: 2rem;
+      flex: 0 0 auto;
+      width: 1.65rem;
+      height: 1.65rem;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       border-radius: 999px;
-      background: #c00020;
-      color: #fff;
-      font-family: "IBM Plex Sans", system-ui, sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
+      background: var(--accent-soft);
+      border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+      color: var(--accent);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
       line-height: 1;
-      box-shadow: 0 0 0 3px rgba(192, 0, 32, 0.35), 0 4px 14px rgba(0, 0, 0, 0.45);
     }
-    .about-workflow__arrow {
-      flex: 0 0 auto;
+    .about-workflow__body {
+      min-width: 0;
+    }
+    .about-workflow__body strong {
+      display: block;
+      color: #c8f4ff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
+    .about-workflow__body span {
+      display: block;
+      margin-top: 0.2rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.35;
+    }
+    .about-workflow__sep {
       align-self: center;
-      color: #f0f3fa;
-      font-size: 1.75rem;
-      line-height: 1;
-      padding: 0 0.15rem;
-      user-select: none;
+      color: var(--muted);
+      opacity: 0.65;
+      padding: 0 0.1rem;
     }
-    @media (max-width: 720px) {
+    .about-workflow__sep .ui-icon {
+      width: 1.15rem;
+      height: 1.15rem;
+    }
+    @media (max-width: 860px) {
       .about-workflow {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
+        grid-template-columns: 1fr;
       }
-      .about-workflow__step {
-        width: min(100%, 18rem);
-        max-width: none;
-      }
-      .about-workflow__arrow {
+      .about-workflow__sep {
+        justify-self: center;
         transform: rotate(90deg);
       }
     }
@@ -2123,11 +2165,12 @@
         <p class="sub" id="appSub">Clique na matriz: linha é complexidade, coluna é incerteza. Use <b>+ Carregar tarefas</b> para importar CSV ou inserir manualmente.</p>
       </div>
       <div class="actions">
-        <button type="button" class="btn-config" id="btnConfig" title="Configuração do modelo" aria-label="Configuração">⚙</button>
-        <button type="button" class="btn-clear-memory" id="btnClearMemory" title="Apaga estimativas salvas neste navegador">Apagar memória</button>
+        <button type="button" class="btn-config btn-icon-only btn-with-icon" id="btnConfig" title="Configuração do modelo" aria-label="Configuração"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+        <button type="button" class="btn-clear-memory btn-with-icon" id="btnClearMemory" title="Apaga estimativas salvas neste navegador"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg><span>Apagar memória</span></button>
         <div class="action-menu" id="exportMenu">
-          <button type="button" class="primary btn-export" id="btnExport" aria-haspopup="menu" aria-expanded="false" aria-controls="exportMenuPanel">
-            Exportar
+          <button type="button" class="primary btn-export btn-with-icon" id="btnExport" aria-haspopup="menu" aria-expanded="false" aria-controls="exportMenuPanel">
+            <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            <span>Exportar</span>
           </button>
           <div class="action-menu__panel" id="exportMenuPanel" role="menu" hidden>
             <button type="button" role="menuitem" data-export="copy-text">Copiar texto</button>
@@ -2138,8 +2181,9 @@
           </div>
         </div>
         <div class="load-menu" id="loadMenu">
-          <button type="button" class="primary btn-load-tasks" id="btnLoadTasks" aria-haspopup="menu" aria-expanded="false" aria-controls="loadMenuPanel">
-            + Carregar tarefas
+          <button type="button" class="primary btn-load-tasks btn-with-icon" id="btnLoadTasks" aria-haspopup="menu" aria-expanded="false" aria-controls="loadMenuPanel">
+            <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+            <span>Carregar tarefas</span>
           </button>
           <div class="load-menu__panel" id="loadMenuPanel" role="menu" hidden>
             <button type="button" role="menuitem" id="btnImportCsv">Importar CSV</button>
@@ -2161,13 +2205,13 @@
     </div>
 
     <nav class="app-tabs" role="tablist" aria-label="Seções">
-      <button type="button" role="tab" id="tabBtn-estimar" data-tab="estimar" aria-controls="tab-estimar" aria-selected="true">Estimar</button>
-      <button type="button" role="tab" id="tabBtn-sobre" data-tab="sobre" aria-controls="tab-sobre" aria-selected="false">Sobre</button>
-      <button type="button" role="tab" id="tabBtn-decidir" data-tab="decidir" aria-controls="tab-decidir" aria-selected="false">Como decidir</button>
-      <button type="button" role="tab" id="tabBtn-jira" data-tab="jira" aria-controls="tab-jira" aria-selected="false">Integrar com Jira</button>
+      <button type="button" role="tab" id="tabBtn-estimar" data-tab="estimar" aria-controls="tab-estimar" aria-selected="false"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Estimar</span><span class="tab-badge">Principal</span></button>
+      <button type="button" role="tab" id="tabBtn-sobre" data-tab="sobre" aria-controls="tab-sobre" aria-selected="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 10v6"/><path d="M12 7h.01"/></svg><span>Sobre</span></button>
+      <button type="button" role="tab" id="tabBtn-decidir" data-tab="decidir" aria-controls="tab-decidir" aria-selected="false"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 9v12h16V9z"/><path d="M9 21v-6h6v6"/></svg><span>Como decidir</span></button>
+      <button type="button" role="tab" id="tabBtn-jira" data-tab="jira" aria-controls="tab-jira" aria-selected="false"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Integrar com Jira</span></button>
     </nav>
 
-    <div class="tab-panel" id="tab-estimar" role="tabpanel" aria-labelledby="tabBtn-estimar">
+    <div class="tab-panel" id="tab-estimar" role="tabpanel" aria-labelledby="tabBtn-estimar" hidden>
     <section class="card tasks-panel" id="tasksPanel">
       <div class="tasks-head">
         <h2 style="margin:0" class="label-with-info">Tasks carregadas <button type="button" class="info-tip" aria-label="Ajuda">i<span class="info-tip__bubble">Lista importada do CSV. Pendente = ainda sem estimativa salva; Estimada = complexidade/incerteza já gravadas. A ordem do arquivo é preservada.</span></button></h2>
@@ -2331,25 +2375,34 @@
     </section>
     </div>
 
-    <div class="tab-panel" id="tab-sobre" role="tabpanel" aria-labelledby="tabBtn-sobre" hidden>
+    <div class="tab-panel" id="tab-sobre" role="tabpanel" aria-labelledby="tabBtn-sobre">
       <section class="card about-explainer" aria-label="Sobre" id="aboutContent">
         <h2>Como a estimativa funciona</h2>
 
         <div class="about-workflow" aria-label="Fluxo em três passos">
-          <div class="about-workflow__step">
+          <article class="about-workflow__step">
             <span class="about-workflow__num" aria-hidden="true">1</span>
-            <p>Importar CSV com tasks a refinar</p>
-          </div>
-          <div class="about-workflow__arrow" aria-hidden="true">→</div>
-          <div class="about-workflow__step">
+            <div class="about-workflow__body">
+              <strong>Importar CSV com tasks a refinar</strong>
+              <span>Use <b>Carregar tarefas → Importar CSV</b> ou insira manualmente.</span>
+            </div>
+          </article>
+          <div class="about-workflow__sep" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></div>
+          <article class="about-workflow__step">
             <span class="about-workflow__num" aria-hidden="true">2</span>
-            <p>Estimar com a matriz</p>
-          </div>
-          <div class="about-workflow__arrow" aria-hidden="true">→</div>
-          <div class="about-workflow__step">
+            <div class="about-workflow__body">
+              <strong>Estimar com a matriz</strong>
+              <span>Complexidade × incerteza viram dias úteis e story points.</span>
+            </div>
+          </article>
+          <div class="about-workflow__sep" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></div>
+          <article class="about-workflow__step">
             <span class="about-workflow__num" aria-hidden="true">3</span>
-            <p>Usar o Markdown + MCP do Jira para atualizar tasks</p>
-          </div>
+            <div class="about-workflow__body">
+              <strong>Atualizar tasks no Jira</strong>
+              <span>Copie o Markdown + MCP gerado na aba Integrar com Jira.</span>
+            </div>
+          </article>
         </div>
 
         <div class="about-chart">
@@ -3185,6 +3238,9 @@
       return normalizeConfig(decodeProp(raw));
     }
     const CONFIG_SETTINGS_KEY = 'task-estimation-settings-v1';
+    const TAB_STORAGE_KEY = 'om-estimator-tab';
+    const VISITED_STORAGE_KEY = 'om-estimator-visited';
+    const VALID_TABS = ['estimar', 'sobre', 'decidir', 'jira'];
 
     function loadStoredSettings() {
       try {
@@ -3245,7 +3301,29 @@
 
     function getActiveTabId() {
       const btn = document.querySelector('.app-tabs [role="tab"][aria-selected="true"]');
-      return (btn && btn.dataset.tab) || 'estimar';
+      const tab = btn && btn.dataset.tab;
+      return VALID_TABS.includes(tab) ? tab : 'estimar';
+    }
+
+    function resolveInitialTab() {
+      const params = new URLSearchParams(window.location.search);
+      const fromUrl = params.get('tab');
+      if (fromUrl && VALID_TABS.includes(fromUrl)) return fromUrl;
+      try {
+        if (!localStorage.getItem(VISITED_STORAGE_KEY)) return 'sobre';
+        const stored = localStorage.getItem(TAB_STORAGE_KEY);
+        if (stored && VALID_TABS.includes(stored)) return stored;
+      } catch (_) {}
+      return 'estimar';
+    }
+
+    function syncTabQueryParam(tabId) {
+      if (!VALID_TABS.includes(tabId)) return;
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('tab', tabId);
+        history.replaceState(null, '', url);
+      } catch (_) {}
     }
 
     function writePropToUrl(cfg, extras = {}) {
@@ -3264,11 +3342,8 @@
       const jql = extras.jiraJql !== undefined ? String(extras.jiraJql || '').trim() : getJiraJql();
       if (jql) url.searchParams.set('jiraJql', jql);
       else url.searchParams.delete('jiraJql');
-      if (extras.tab !== undefined) {
-        const tab = String(extras.tab || 'estimar');
-        if (tab && tab !== 'estimar') url.searchParams.set('tab', tab);
-        else url.searchParams.delete('tab');
-      }
+      const tab = extras.tab !== undefined ? String(extras.tab || 'estimar') : getActiveTabId();
+      if (VALID_TABS.includes(tab)) url.searchParams.set('tab', tab);
       history.replaceState({}, '', url);
       persistSettings({ cfg, jiraUrl: jira, jiraJql: jql });
     }
@@ -7354,9 +7429,8 @@
     }
 
     function setActiveTab(tabId, { persist = true } = {}) {
-      const tabs = ['estimar', 'sobre', 'decidir', 'jira'];
-      const next = tabs.includes(tabId) ? tabId : 'estimar';
-      for (const id of tabs) {
+      const next = VALID_TABS.includes(tabId) ? tabId : 'estimar';
+      for (const id of VALID_TABS) {
         const panel = document.getElementById('tab-' + id);
         const btn = document.getElementById('tabBtn-' + id);
         const active = id === next;
@@ -7369,13 +7443,11 @@
       const sub = document.getElementById('appSub');
       if (sub) sub.innerHTML = TAB_SUB[next] || TAB_SUB.estimar;
       if (persist) {
-        try { localStorage.setItem('om-estimator-tab', next); } catch (_) {}
         try {
-          const url = new URL(window.location.href);
-          if (next === 'estimar') url.searchParams.delete('tab');
-          else url.searchParams.set('tab', next);
-          history.replaceState(null, '', url);
+          localStorage.setItem(TAB_STORAGE_KEY, next);
+          localStorage.setItem(VISITED_STORAGE_KEY, '1');
         } catch (_) {}
+        syncTabQueryParam(next);
       }
       if (next === 'estimar') {
         requestAnimationFrame(() => {
@@ -7420,13 +7492,8 @@
         tabs[next].focus();
         setActiveTab(tabs[next].dataset.tab);
       });
-      let start = 'estimar';
-      try {
-        const fromUrl = new URL(window.location.href).searchParams.get('tab');
-        if (fromUrl) start = fromUrl;
-        else start = localStorage.getItem('om-estimator-tab') || 'estimar';
-      } catch (_) {}
-      setActiveTab(start, { persist: false });
+      let start = resolveInitialTab();
+      setActiveTab(start, { persist: true });
     }
 
     function wireJiraExportGuide() {
