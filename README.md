@@ -2,7 +2,7 @@
 
 Ferramenta web (single-page) para estimar tasks com a matriz **Complexidade × Incerteza**, curvas históricas de dias úteis e export para atualizar o Jira.
 
-Arquivo principal: [`estimator.html`](./estimator.html).
+Arquivo principal: [`index.html`](./index.html).
 
 ## Como abrir
 
@@ -15,7 +15,7 @@ npx --yes serve .
 python3 -m http.server 8080
 ```
 
-Depois acesse `http://localhost:3000/estimator.html` (ou a porta do seu servidor).
+Depois acesse `http://localhost:3000/` ou `http://localhost:8080/` (raiz do servidor).
 
 > Abrir o HTML via `file://` funciona na maior parte dos casos; um servidor local evita restrições de alguns browsers com módulos/CDN.
 
@@ -36,7 +36,7 @@ Depois acesse `http://localhost:3000/estimator.html` (ou a porta do seu servidor
 4. Salve a estimativa (e comentário opcional para IA).
 5. Na aba **Integrar com Jira**, copie a instrução / CSV / JSON para atualizar as tasks.
 
-Estimativas ficam em `localStorage` (`task-estimation-v1`).
+Estimativas e a sessão (lista de tasks carregadas) ficam em `localStorage` (`task-estimation-v1` e `task-estimation-session-v1`).
 
 ## Modelo mental
 
@@ -59,7 +59,7 @@ Regra de ouro: incerteza alta bloqueia estimativa; complexidade alta pede decomp
 Valores de `jiraUrl` / `jiraJql` (e qualquer dado do time) vêm **somente** dos query params — não há default embutido no app. Exemplo:
 
 ```text
-estimator.html?jiraUrl=https://seu-dominio.atlassian.net&jiraJql=parent%20%3D%20KEY-123%20ORDER%20BY%20created%20DESC&tab=estimar
+/?jiraUrl=https://seu-dominio.atlassian.net&jiraJql=parent%20%3D%20KEY-123%20ORDER%20BY%20created%20DESC&tab=estimar
 ```
 
 ## Configuração (⚙)
@@ -87,8 +87,9 @@ No modal ⚙ dá para editar tudo que vai na URL / `prop`:
 
 ```text
 task-estimation/
-├── estimator.html   # app completo
+├── index.html       # app completo
 ├── favicon.svg
+├── assets/          # screenshots do tutorial Jira
 └── README.md
 ```
 
